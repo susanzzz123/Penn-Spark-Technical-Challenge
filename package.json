@@ -4,15 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "frontend": "parcel frontend/src/index.html",
+    "server": "node backend/server.js",
+    "dev": "concurrently --kill-others \"npm run frontend\" \"npm run server\"",
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.0",
+    "cookie-session": "^2.0.0",
     "express": "^4.18.1",
+    "mongoose": "^6.5.4",
     "parcel": "^2.7.0",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0"
   }
 }

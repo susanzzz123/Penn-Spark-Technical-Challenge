@@ -1,4 +1,4 @@
-// const mongoose = require('mongoose')
+const mongoose = require('mongoose')
 const express = require('express')
 const cookieSession = require('cookie-session')
 // const path = require('path')
@@ -23,11 +23,11 @@ app.use(express.json())
 
 app.use(express.static('dist')) // set the static folder
 
-// app.use(cookieSession({
-//   name: 'session',
-//   keys: ['pineapple'],
-//   maxAge: 24 * 60 * 60 * 1000 // 24 hours
-// }))
+app.use(cookieSession({
+  name: 'session',
+  keys: ['pineapple'],
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
 
 // app.use(cors({ credentials: true, origin: 'http://localhost:1234' }))
 
