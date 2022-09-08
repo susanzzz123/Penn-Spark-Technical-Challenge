@@ -18,7 +18,7 @@ router.get('/tweets', async (req, res, next) => {
 })
 
 router.get('/tweets/hashtag', async (req, res, next) => {
-    const { hashtags } = req.body
+    const { hashtag } = req.body
     try {
       const tweets = await Tweet.find({ hashtag })
       res.json(tweets)
@@ -28,10 +28,10 @@ router.get('/tweets/hashtag', async (req, res, next) => {
   })
 
 router.post('/tweets/add', isAuthenticated, async (req, res, next) => {
-  const { tweetText } = req.body
+  const { tweetText, hashtag } = req.body
   const author = req.session.username
   try {
-    await Tweet.create({ tweetText, answer: '', author })
+    await Tweet.create({ tweetText, answer: '', author, hashtag })
     res.send('new tweet posted successfully')
   } catch (e) {
     next(new Error('error while creating tweet'))

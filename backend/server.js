@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const express = require('express')
 const cookieSession = require('cookie-session')
-// const path = require('path')
+const path = require('path')
 const cors = require('cors')
 
 const account = require('./routes/account')
@@ -16,7 +16,8 @@ const MONGO_URI = process.env.MONGODB_URI ||
 //connect to database
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  dbName: 'twitter-replica'
 })
 
 app.use(express.json())
@@ -29,7 +30,7 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
 
-// app.use(cors({ credentials: true, origin: 'http://localhost:1234' }))
+app.use(cors({ credentials: true, origin: 'http://localhost:1234' }))
 
 app.use('/account', account)
 app.use('/api', api)
