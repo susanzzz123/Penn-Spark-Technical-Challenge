@@ -2,22 +2,22 @@ const mongoose = require('mongoose')
 const express = require('express')
 const cookieSession = require('cookie-session')
 // const path = require('path')
-// const cors = require('cors')
+const cors = require('cors')
 
-// const account = require('./routes/account')
-// const api = require('./routes/api')
+const account = require('./routes/account')
+const api = require('./routes/api')
 
 const app = express()
 const port = process.env.PORT || 3000
 
-// const MONGO_URI = process.env.MONGODB_URI ||
-// 'mongodb+srv://Susan:Susanzzz123@cluster0.ehvmi.mongodb.net/?retryWrites=true&w=majority'
+const MONGO_URI = process.env.MONGODB_URI ||
+'mongodb+srv://Susan:Susanzzz123@cluster0.ehvmi.mongodb.net/?retryWrites=true&w=majority'
 
-// //connect to database
-// mongoose.connect(MONGO_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// })
+//connect to database
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 
 app.use(express.json())
 
@@ -31,8 +31,8 @@ app.use(cookieSession({
 
 // app.use(cors({ credentials: true, origin: 'http://localhost:1234' }))
 
-// app.use('/account', account)
-// app.use('/api', api)
+app.use('/account', account)
+app.use('/api', api)
 
 // error handling
 app.use((err, req, res, next) => {

@@ -5,7 +5,7 @@ const tweetSchema = new Schema({
   tweetText: { type: String, required: true },
   answer: String,
   author: String,
-  hashtags: String
+  hashtag: String
 })
 
 const Tweet = model('Tweet', tweetSchema)

@@ -20,7 +20,7 @@ router.get('/tweets', async (req, res, next) => {
 router.get('/tweets/hashtag', async (req, res, next) => {
     const { hashtags } = req.body
     try {
-      const tweets = await Tweet.find({ hashtags })
+      const tweets = await Tweet.find({ hashtag })
       res.json(tweets)
     } catch (e) {
       next(new Error('an error occured while fetching the hashtagged tweets'))
