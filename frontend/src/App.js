@@ -20,7 +20,9 @@ export const App = () => {
   const [tweetText, setTweetText] = useState('')
   const [tweetImg, setTweetImg] = useState('')
   const [hashtag, setHashtag] = useState('')
-  const [searchTag, setSearchTag] = useState('')
+  const [displayedTweets, setDisplayedTweets] = useState([])
+  const [show, setShow] = useState(false)
+  const [msg, setMsg] = useState('')
 
   const loggedIn = (user !== '' && user !== undefined)
 
@@ -117,7 +119,7 @@ export const App = () => {
           </Container>
         </Navbar>
         <div className='overflow-auto'>
-          <SearchBar setSearchTag={setSearchTag}></SearchBar>
+          <SearchBar setDisplayedTweets={setDisplayedTweets} show={show} setShow={setShow}></SearchBar>
           {
             loggedIn && (
               <>
@@ -164,25 +166,50 @@ export const App = () => {
             )
           }
           {
+            show && (
+              <Container className='d-grid justify-content-center'>
+                <Row>
+                  {displayedTweets.map(tweet =>
+                    <Col key={tweet._id}>
+                      <TweetList
+                      date={tweet.created_at}
+                      author={tweet.author}
+                      tweetText={tweet.tweetText}
+                      tweetImg={tweet.tweetImg}
+                      hashtag={tweet.hashtag}
+                      _id={tweet._id}
+                      key={tweet._id}>
+                      </TweetList>
+                    </Col>
+                  )}
+                </Row>
+              </Container>
+            )
+          }
+          {
             tweets.length === 0 && (<Spinner animation="border" variant="primary" />)
           }
-          <Container className='d-grid justify-content-center'>
-            <Row>
-              {tweets.map(tweet =>
-                <Col key={tweet._id}>
-                  <TweetList
-                  date={tweet.created_at}
-                  author={tweet.author}
-                  tweetText={tweet.tweetText}
-                  tweetImg={tweet.tweetImg}
-                  hashtag={tweet.hashtag}
-                  _id={tweet._id}
-                  key={tweet._id}>
-                  </TweetList>
-                </Col>
-              )}
-            </Row>
-          </Container>
+          {
+            !show && (
+              <Container className='d-grid justify-content-center'>
+              <Row>
+                {tweets.map(tweet =>
+                  <Col key={tweet._id}>
+                    <TweetList
+                    date={tweet.created_at}
+                    author={tweet.author}
+                    tweetText={tweet.tweetText}
+                    tweetImg={tweet.tweetImg}
+                    hashtag={tweet.hashtag}
+                    _id={tweet._id}
+                    key={tweet._id}>
+                    </TweetList>
+                  </Col>
+                )}
+              </Row>
+            </Container>
+            )
+          }
         </div>
       </>
     );
