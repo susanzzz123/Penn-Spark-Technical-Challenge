@@ -31,23 +31,10 @@ router.post('/tweets/add', isAuthenticated, async (req, res, next) => {
   const { tweetText, hashtag, tweetImg, created_at } = req.body
   const author = req.session.username
   try {
-    await Tweet.create({ tweetText, tweetImg, reply: '', author, hashtag, created_at })
+    await Tweet.create({ tweetText, tweetImg, author, hashtag, created_at })
     res.send('new tweet posted successfully')
   } catch (e) {
     next(new Error('error while creating tweet'))
-  }
-})
-
-router.post('/tweets/reply', isAuthenticated, async (req, res, next) => {
-  const { _id, reply } = req.body
-  try {
-    if (answer === '' || reply === undefined) {
-      throw new Error('answer cannot be empty')
-    }
-    await Tweet.updateOne({ _id }, { reply })
-    res.send('tweet answered successfully')
-  } catch (e) {
-    next(new Error('error while answering tweet'))
   }
 })
 

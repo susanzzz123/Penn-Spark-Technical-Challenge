@@ -12,12 +12,13 @@ export const SearchBar = ({ show, setShow, setDisplayedTweets }) => {
     const [searchTag, setSearchTag] = useState('')
 
     const handleSearch = async () => {
-        try {
-            const { data } = await axios.get('http://localhost:3000/api/tweets/hashtag', { hashtag: searchTag })
-            setDisplayedTweets(data)
-        } catch (e) {
-            window.alert(e.response.data)
-        }
+        // try {
+        //     const { data } = await axios.get('http://localhost:3000/api/tweets/hashtag', { hashtag: searchTag })
+        //     setDisplayedTweets(data)
+        // } catch (e) {
+        //     window.alert(e.response.data)
+        // }
+        
     }
 
     return (
