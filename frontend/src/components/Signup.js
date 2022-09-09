@@ -40,7 +40,7 @@ export const Signup = () => {
           <Alert variant='success'>{msg}{' '}Returning to home page in a few seconds.</Alert>
         )
       }
-      <div className='d-flex justify-content-center align-items-center'>
+      <div className='d-flex justify-content-center align-items-center mt-5'>
         <style type="text/css">
             {`
                 .signup-form {
@@ -61,7 +61,6 @@ export const Signup = () => {
                             placeholder="Username"
                             onChange={e => setUsername(e.target.value)} required/>
                         </Form.Group>
-
                         <Form.Group className="mb-3">
                             <Form.Label>Password</Form.Label>
                             <Form.Control

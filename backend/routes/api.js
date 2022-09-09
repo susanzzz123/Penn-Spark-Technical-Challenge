@@ -11,7 +11,7 @@ router.get('/status', (req, res) => {
 router.get('/tweets', async (req, res, next) => {
   try {
     const tweets = await Tweet.find()
-    res.json(tweets.splice(0, 10))
+    res.json(tweets)
   } catch (e) {
     next(new Error('an error occured while fetching the tweets'))
   }

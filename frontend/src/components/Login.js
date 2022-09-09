@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Alert from 'react-bootstrap/Alert'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import Card from 'react-bootstrap/Card'
+import { Container } from 'react-bootstrap'
 
 export const Login = () => {
   const [username, setUsername] = useState('')
@@ -15,75 +20,65 @@ export const Login = () => {
     setSuccess(false)
   }
 
-  const createUser = async () => {
+  axios.defaults.withCredentials = true
+
+  const loginUser = async () => {
     try {
-      await axios.post('https://qna-platform-cw-lite.herokuapp.com/account/signup', { username, password })
-      setMsg('User creation was successful!')
+      const { data } = await axios.post('http://localhost:3000/account/login', { username, password })
+      setMsg(data)
       setSuccess(true)
       window.setTimeout(() => timeOut(), 2500)
     } catch (e) {
-      console.log(e)
       window.alert(e.response.data)
     }
   }
 
   return (
     <>
-    {
-      success && (
-        <></>
-        // <Alert className='p-4 mb-4' color='success'>
-        //     <span className='text-lg'>
-        //       <span className='font-medium'>
-        //         {msg}
-        //       </span>
-        //       {' '}Returning to home page in a few seconds.
-        //     </span>
-        // </Alert>
-      )
-    }
-    {/* <div className='grid h-screen place-items-center bg-purple-100'>
-      <div className='bg-white border-2 w-full h-2/4 max-w-2xl shadow-lg rounded px-8 pt-6 pb-8 mb-4'>
-        <div className='mt-12 mb-5 mx-4'>
-          <label className='block text-gray-700 text-lg font-bold mb-2'>
-            New Username
-          </label>
-          <input
-          className='shadow appearance-none
-          border rounded w-full py-2 px-3
-          text-gray-700 leading-tight
-          focus:outline-none focus:shadow-outline'
-          id='username' type='text' placeholder='username:'
-          onChange={e => setUsername(e.target.value)} required/>
-        </div>
-        <div className='mb-6  mx-4'>
-          <label className='block text-gray-700 text-lg font-bold mb-2'>
-            New Password
-          </label>
-          <input className='shadow appearance-none border
-          rounded w-full py-2 px-3
-          text-gray-700 mb-3 leading-tight
-          focus:outline-none focus:shadow-outline'
-          id='password' type='password' placeholder='password:'
-          onChange={e => setPassword(e.target.value)} required/>
-        </div>
-        <div className='flex items-center justify-between mx-4'>
-          <button className='shadow bg-purple-500
-          hover:bg-purple-400 focus:shadow-outline
-          focus:outline-none text-white font-bold
-          py-2 px-4 rounded-full text-md' onClick={() => createUser()} type='button'>
-            Sign Up
-          </button>
-          <p className='inline-block align-baseline
-          font-bold text-md text-blue-500 hover:text-blue-800'>
-            <Link to='/login'>Click here to log in! </Link>
-          </p>
-        </div>
-        <p className='mt-16 text-center text-gray-500 text-xs'>
-            Campus Wire Lite
-          </p>
+      {
+        success && (
+          <Alert variant='success'>{msg}{' '}Returning to home page in a few seconds.</Alert>
+        )
+      }
+      <div className='d-flex justify-content-center align-items-center mt-5'>
+        <style type="text/css">
+            {`
+                .login-form {
+                    vertical-align: middle;
+                    margin: auto;
+                    width: 50%;
+                }
+            `}
+        </style>
+        <Container>
+            <Card className='login-form my-auto'>
+                <Card.Body>
+                    <Card.Title>Log in to your account</Card.Title>
+                    <Form>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control 
+                            placeholder="Username"
+                            onChange={e => setUsername(e.target.value)} required/>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control
+                            type="password"
+                            placeholder="Password"
+                            onChange={e => setPassword(e.target.value)} required/>
+                        </Form.Group>
+                        <Button variant="primary" onClick={() => loginUser()}>
+                            Log in
+                        </Button>
+                    </Form>
+                    <Card.Text className='mt-2'>
+                      Don't have an account? Sign up <Link to='/login'>here</Link>!
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        </Container>
       </div>
-      </div> */}
     </>
   )
 }
