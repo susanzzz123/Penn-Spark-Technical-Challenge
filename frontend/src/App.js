@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { TweetList } from './components/TweetList'
+import { SearchBar } from './components/SearchBar'
 
 import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
@@ -19,6 +20,7 @@ export const App = () => {
   const [tweetText, setTweetText] = useState('')
   const [tweetImg, setTweetImg] = useState('')
   const [hashtag, setHashtag] = useState('')
+  const [searchTag, setSearchTag] = useState('')
 
   const loggedIn = (user !== '' && user !== undefined)
 
@@ -107,7 +109,7 @@ export const App = () => {
                   <Navbar.Toggle />
                   <Navbar.Collapse className="justify-content-end">
                     <Link to='/login'><Button>Log in</Button></Link>
-                    <Link to='/signup'><Button>Sign up</Button></Link>
+                    <Link to='/signup'><Button className='button'>Sign up</Button></Link>
                   </Navbar.Collapse>
                 </>
               )
@@ -115,6 +117,7 @@ export const App = () => {
           </Container>
         </Navbar>
         <div className='overflow-auto'>
+          <SearchBar setSearchTag={setSearchTag}></SearchBar>
           {
             loggedIn && (
               <>
