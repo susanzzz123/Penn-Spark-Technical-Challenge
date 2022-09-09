@@ -61,7 +61,7 @@ export const App = () => {
 
   const add = async () => {
     try {
-      await axios.post('http://localhost:3000/api/tweets/add', { tweetText, tweetImg, hashtag, created_at: new Date().toString })
+      await axios.post('http://localhost:3000/api/tweets/add', { tweetText, tweetImg, hashtag, created_at: Date() })
       setClicked(false)
       setTweetText('')
       setTweetImg('')

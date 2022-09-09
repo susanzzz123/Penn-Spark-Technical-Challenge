@@ -6,7 +6,7 @@ const tweetSchema = new Schema({
   tweetImg: String,
   author: String,
   hashtag: { type: String, required: true },
-  created_at: Date
+  created_at: String
 })
 
 const Tweet = model('Tweet', tweetSchema)
