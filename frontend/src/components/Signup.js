@@ -37,7 +37,7 @@ export const Signup = () => {
     <>
       {
         success && (
-          <Alert variant='success'>{msg}{' '}Returning to home page in a few seconds.</Alert>
+          <Alert variant='success'><strong>{msg}</strong>{' '}Returning to home page in a few seconds.</Alert>
         )
       }
       <div className='d-flex justify-content-center align-items-center mt-5'>

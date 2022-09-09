@@ -61,7 +61,7 @@ export const App = () => {
 
   const add = async () => {
     try {
-      await axios.post('http://localhost:3000/api/tweets/add', { tweetText, tweetImg, hashtag, created_at: new Date() })
+      await axios.post('http://localhost:3000/api/tweets/add', { tweetText, tweetImg, hashtag, created_at: new Date().toString })
       setClicked(false)
       setTweetText('')
       setTweetImg('')
@@ -82,9 +82,12 @@ export const App = () => {
             .button {
               margin-left: 10px;
             }
+            .nav-width {
+              width: 100vw
+            }
           `}
         </style>
-        <Navbar className='mb-3' bg="light">
+        <Navbar className='mb-3 nav-width' bg="light">
           <Container>
             <Navbar.Brand className='header'>Tweetoe</Navbar.Brand>
             {
