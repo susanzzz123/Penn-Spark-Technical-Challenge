@@ -14,6 +14,7 @@ router.post('/signup', async (req, res, next) => {
     await User.create({ username, password })
     res.send('successfully created user')
   } catch (e) {
+    console.log(e)
     next(new Error('username is taken/username or password cannot be empty'))
   }
 })

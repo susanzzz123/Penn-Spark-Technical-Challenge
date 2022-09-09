@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom"
+import ReactDOM from "react-dom/client"
 import { App } from "./App"
 import { Login } from './components/Login'
 import { Signup } from './components/Signup'
@@ -17,7 +17,7 @@ import {
       <Routes>
         <Route path="/" element={<App />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
-      <Route path='/login' element={<Login />}></Route>
+        <Route path='/login' element={<Login />}></Route>
       </Routes>
     </BrowserRouter>
   );

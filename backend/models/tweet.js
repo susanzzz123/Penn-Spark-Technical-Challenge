@@ -3,7 +3,7 @@ const { Schema, model } = mongoose
 
 const tweetSchema = new Schema({
   tweetText: { type: String, required: true },
-  answer: String,
+  reply: String,
   author: String,
   hashtag: { type: String, required: true }
 })
