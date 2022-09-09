@@ -12,6 +12,7 @@ import { Form } from 'react-bootstrap'
 import Spinner from 'react-bootstrap/Spinner'
 import { Row } from 'react-bootstrap'
 import { Col } from 'react-bootstrap'
+import Toast from 'react-bootstrap/Toast'
 
 export const App = () => {
   const [tweets, setTweets] = useState([])
@@ -23,6 +24,7 @@ export const App = () => {
   const [selected, setSelected] = useState('')
   const [show, setShow] = useState(false)
   const [msg, setMsg] = useState('')
+  const [deleteNotif, showDeleteNotif] = useState(false)
 
   const loggedIn = (user !== '' && user !== undefined)
   const filteredTweets = tweets.filter(tweet => tweet.hashtag === selected)
