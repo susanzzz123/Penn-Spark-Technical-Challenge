@@ -32,11 +32,13 @@ router.delete('/tweets/delete', isAuthenticated, async (req, res, next) => {
   const { _id, author } = req.body
   try {
     if (author !== req.session.username) {
+      res.send('wrong person lol')
       throw new Error('cannot delete tweet if you are not the author')
     }
     await Tweet.deleteOne({ _id })
     res.send('tweet deleted successfully')
   } catch (e) {
+    console.log(e)
     next(new Error('error while deleting tweet'))
   }
 })

@@ -46,7 +46,6 @@ export const App = () => {
       try {
         const { data } = await axios.get('http://localhost:3000/api/status')
         setUser(data)
-        console.log(data)
       } catch (e) {
         setMsg('error while fetching logged in user')
       }
@@ -185,7 +184,8 @@ export const App = () => {
                       tweetImg={tweet.tweetImg}
                       hashtag={tweet.hashtag}
                       _id={tweet._id}
-                      key={tweet._id}>
+                      key={tweet._id}
+                      user={user}>
                       </TweetList>
                   </Col>
                   )}
@@ -209,7 +209,8 @@ export const App = () => {
                     tweetImg={tweet.tweetImg}
                     hashtag={tweet.hashtag}
                     _id={tweet._id}
-                    key={tweet._id}>
+                    key={tweet._id}
+                    user={user}>
                     </TweetList>
                   </Col>
                 )}

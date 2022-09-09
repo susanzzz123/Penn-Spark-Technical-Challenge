@@ -14,6 +14,7 @@ export const Signup = () => {
   const [success, setSuccess] = useState(false)
 
   const navigate = useNavigate()
+  axios.defaults.withCredentials = true
 
   const timeOut = () => {
     navigate('/')
