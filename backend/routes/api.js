@@ -17,16 +17,6 @@ router.get('/tweets', async (req, res, next) => {
   }
 })
 
-router.get('/tweets/hashtag', async (req, res, next) => {
-    const { hashtag } = req.body
-    try {
-      const tweets = await Tweet.find({ hashtag })
-      res.json(tweets)
-    } catch (e) {
-      next(new Error('an error occured while fetching the hashtagged tweets'))
-    }
-  })
-
 router.post('/tweets/add', isAuthenticated, async (req, res, next) => {
   const { tweetText, hashtag, tweetImg, created_at } = req.body
   const author = req.session.username

@@ -8,17 +8,12 @@ import { Container } from 'react-bootstrap'
 import { AiOutlineSearch } from "react-icons/ai"
 import { BsArrowReturnLeft } from "react-icons/bs"
 
-export const SearchBar = ({ show, setShow, setDisplayedTweets }) => {
+export const SearchBar = ({ show, setShow, setSelected }) => {
     const [searchTag, setSearchTag] = useState('')
 
     const handleSearch = async () => {
-        // try {
-        //     const { data } = await axios.get('http://localhost:3000/api/tweets/hashtag', { hashtag: searchTag })
-        //     setDisplayedTweets(data)
-        // } catch (e) {
-        //     window.alert(e.response.data)
-        // }
-        
+        setSelected(searchTag)
+        setShow(true)
     }
 
     return (

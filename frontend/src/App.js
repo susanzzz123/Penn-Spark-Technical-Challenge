@@ -20,11 +20,12 @@ export const App = () => {
   const [tweetText, setTweetText] = useState('')
   const [tweetImg, setTweetImg] = useState('')
   const [hashtag, setHashtag] = useState('')
-  const [displayedTweets, setDisplayedTweets] = useState([])
+  const [selected, setSelected] = useState('')
   const [show, setShow] = useState(false)
   const [msg, setMsg] = useState('')
 
   const loggedIn = (user !== '' && user !== undefined)
+  const filteredTweets = tweets.filter(tweet => tweet.hashtag === selected)
 
   useEffect(() => {
     const intervalID = setInterval(async () => {
@@ -122,7 +123,7 @@ export const App = () => {
           </Container>
         </Navbar>
         <div className='overflow-auto'>
-          <SearchBar setDisplayedTweets={setDisplayedTweets} show={show} setShow={setShow}></SearchBar>
+          <SearchBar setSelected={setSelected} show={show} setShow={setShow}></SearchBar>
           {
             loggedIn && (
               <>
@@ -172,7 +173,7 @@ export const App = () => {
             show && (
               <Container className='d-grid justify-content-center'>
                 <Row>
-                  {displayedTweets.map(tweet =>
+                  {filteredTweets.map(tweet =>
                     <Col key={tweet._id}>
                       <TweetList
                       date={tweet.created_at}
@@ -183,7 +184,7 @@ export const App = () => {
                       _id={tweet._id}
                       key={tweet._id}>
                       </TweetList>
-                    </Col>
+                  </Col>
                   )}
                 </Row>
               </Container>
