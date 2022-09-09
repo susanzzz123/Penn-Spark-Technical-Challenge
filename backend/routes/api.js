@@ -38,7 +38,6 @@ router.delete('/tweets/delete', isAuthenticated, async (req, res, next) => {
     await Tweet.deleteOne({ _id })
     res.send('tweet deleted successfully')
   } catch (e) {
-    console.log(e)
     next(new Error('error while deleting tweet'))
   }
 })

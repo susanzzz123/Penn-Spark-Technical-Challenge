@@ -6,7 +6,7 @@ import { IoTrashOutline } from "react-icons/io5"
 export const TweetList = ({ date, author, tweetText, tweetImg, hashtag, _id, user }) => {
     const deletePost = async () => {
         try {
-          const { data } = await axios.delete('http://localhost:3000/api/tweets/delete', { data: { _id, author } })
+          await axios.delete('http://localhost:3000/api/tweets/delete', { data: { _id, author } })
         } catch (e) {
           window.alert(e.response.data)
         }
