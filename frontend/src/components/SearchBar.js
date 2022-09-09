@@ -11,9 +11,14 @@ import { BsArrowReturnLeft } from "react-icons/bs"
 export const SearchBar = ({ show, setShow, setSelected }) => {
     const [searchTag, setSearchTag] = useState('')
 
-    const handleSearch = async () => {
+    const handleSearch = () => {
         setSelected(searchTag)
         setShow(true)
+    }
+    
+    const handleReturn = () => {
+        setShow(false)
+        setSearchTag('')
     }
 
     return (
@@ -23,17 +28,19 @@ export const SearchBar = ({ show, setShow, setSelected }) => {
                     width: 30%;
                 }
                 .return {
-                    font-size: 2rem;
+                    font-size: 1.75rem;
                     color: #696969;
+                    cursor: pointer;
+                    margin-left: 30px;
                 }
             `}</style>
-            <Container className='search d-flex justify-content-center'>
+            <Container className='search d-flex justify-content-center mt-3'>
                 <InputGroup className="mb-3">
                     <Form.Control
                     placeholder="Search tweets in a #topic:"
                     aria-describedby="basic-addon2"
                     onChange={e => setSearchTag(e.target.value)}
-                    />
+                    value={searchTag}/>
                     <Button
                     variant="primary"
                     id="button-addon2"
@@ -43,9 +50,11 @@ export const SearchBar = ({ show, setShow, setSelected }) => {
                 </InputGroup>
                 {
                     show && (
-                        <BsArrowReturnLeft
-                        className='return'
-                        onClick={() => setShow(false)}></BsArrowReturnLeft>
+                        <div className='d-flex'>
+                            <BsArrowReturnLeft
+                            className='return'
+                            onClick={() => handleReturn()}></BsArrowReturnLeft>
+                        </div>
                     )
                 }
             </Container>

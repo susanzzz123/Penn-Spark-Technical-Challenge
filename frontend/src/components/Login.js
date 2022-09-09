@@ -73,7 +73,7 @@ export const Login = () => {
                         </Button>
                     </Form>
                     <Card.Text className='mt-2'>
-                      Don't have an account? Sign up <Link to='/login'>here</Link>!
+                      Don't have an account? Sign up <Link to='/signup'>here</Link>!
                     </Card.Text>
                 </Card.Body>
             </Card>

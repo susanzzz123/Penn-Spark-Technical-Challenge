@@ -22,7 +22,7 @@ router.post('/signup', async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
   const { username, password } = req.body
   if (req.session.username) {
-    res.send(`You are logged in as ${req.session.username}`)
+    res.send(`You are logged in as ${req.session.username}!`)
   } else {
     try {
       const user = await User.findOne({ username })

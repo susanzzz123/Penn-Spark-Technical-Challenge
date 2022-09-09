@@ -26,6 +26,8 @@ export const App = () => {
 
   const loggedIn = (user !== '' && user !== undefined)
   const filteredTweets = tweets.filter(tweet => tweet.hashtag === selected)
+  axios.defaults.withCredentials = true
+
 
   useEffect(() => {
     const intervalID = setInterval(async () => {
@@ -44,6 +46,7 @@ export const App = () => {
       try {
         const { data } = await axios.get('http://localhost:3000/api/status')
         setUser(data)
+        console.log(data)
       } catch (e) {
         setMsg('error while fetching logged in user')
       }
@@ -126,7 +129,7 @@ export const App = () => {
           <SearchBar setSelected={setSelected} show={show} setShow={setShow}></SearchBar>
           {
             loggedIn && (
-              <>
+              <div className='d-flex justify-content-center mb-4'>
                 <Button onClick={() => setClicked(true)}>
                   New Tweet
                 </Button>
@@ -166,7 +169,7 @@ export const App = () => {
                     </Modal.Footer>
                 </Modal>
                 
-              </>
+              </div>
             )
           }
           {

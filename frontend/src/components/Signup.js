@@ -20,8 +20,6 @@ export const Signup = () => {
     setSuccess(false)
   }
 
-  axios.defaults.withCredentials = true
-
   const createUser = async () => {
     try {
       await axios.post('http://localhost:3000/account/signup', { username, password })
