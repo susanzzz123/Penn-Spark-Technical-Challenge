@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { TweetList } from './components/TweetList'
 
 import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
 import { Button } from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal'
+import { Form } from 'react-bootstrap'
+import Spinner from 'react-bootstrap/Spinner'
+import { Row } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 
 export const App = () => {
   const [tweets, setTweets] = useState([])
-  const [hashtag, setHashtag] = useState('')
   const [user, setUser] = useState('')
   const [clicked, setClicked] = useState(false)
+  const [tweetText, setTweetText] = useState('')
+  const [tweetImg, setTweetImg] = useState('')
+  const [hashtag, setHashtag] = useState('')
 
   const loggedIn = (user !== '' && user !== undefined)
 
@@ -50,7 +57,11 @@ export const App = () => {
 
   const add = async () => {
     try {
-      await axios.post('http://localhost:3000/api/tweets/add', { tweetText, hashtag })
+      await axios.post('http://localhost:3000/api/tweets/add', { tweetText, tweetImg, hashtag, created_at: new Date() })
+      setClicked(false)
+      setTweetText('')
+      setTweetImg('')
+      setHashtag('')
     } catch (e) {
       window.alert(e.response.data)
     }
@@ -69,7 +80,7 @@ export const App = () => {
             }
           `}
         </style>
-        <Navbar bg="light">
+        <Navbar className='mb-3' bg="light">
           <Container>
             <Navbar.Brand className='header'>Tweetoe</Navbar.Brand>
             {
@@ -103,46 +114,73 @@ export const App = () => {
             }
           </Container>
         </Navbar>
-        {
-          loggedIn && (
-            <>
-              <Button onClick={() => setClicked(true)}>
-                New Tweet
-              </Button>
-              <Modal
-              aria-labelledby="contained-modal-title-vcenter"
-              show={clicked}
-              onHide={() => setClicked(false)}
-              centered
-              >
-                  <Modal.Header closeButton>
-                      <Modal.Title id="contained-modal-title-vcenter">
-                      New Tweet
-                      </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                      <input type='textarea'></input>
-                  </Modal.Body>
-                  <Modal.Footer>
-                      <Button onClick={() => setClicked(false)}>Close</Button>
-                  </Modal.Footer>
-              </Modal>
-              {/* <button className='shadow ml-5 mt-5 mb-1 bg-purple-500 hover:bg-purple-400
-              focus:shadow-outline focus:outline-none
-              text-white font-bold py-2 px-4 rounded-full text-lg' type='button'
-              onClick={() => setClicked(true)}>
-                Add New Question
-              </button>
-              {
-                clicked && (
-                  <>
-                  <AddQuestion setClicked={setClicked} setQuestionText={setQuestionText} add={add}></AddQuestion>
-                  </>
-                )
-              } */}
-            </>
-          )
-        }
+        <div className='overflow-auto'>
+          {
+            loggedIn && (
+              <>
+                <Button onClick={() => setClicked(true)}>
+                  New Tweet
+                </Button>
+                <Modal
+                aria-labelledby="contained-modal-title-vcenter"
+                show={clicked}
+                onHide={() => setClicked(false)}
+                centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                        New Tweet
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <Form>
+                        <Form.Group>
+                          <Form.Control
+                          placeholder='Add an image:'
+                          onChange={e => setTweetImg(e.target.value)}/>
+                        </Form.Group>
+                        <Form.Group className='mt-3'>
+                          <Form.Control
+                          as="textarea"
+                          placeholder='Write down some thoughts:'
+                          onChange={e => setTweetText(e.target.value)} required/>
+                        </Form.Group>
+                        <Form.Group className='mt-3'>
+                          <Form.Control
+                          placeholder='#hashtag:'
+                          onChange={e => setHashtag(e.target.value)} required/>
+                        </Form.Group>
+                      </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={() => add()}>Post</Button>
+                    </Modal.Footer>
+                </Modal>
+                
+              </>
+            )
+          }
+          {
+            tweets.length === 0 && (<Spinner animation="border" variant="primary" />)
+          }
+          <Container className='d-grid justify-content-center'>
+            <Row>
+              {tweets.map(tweet =>
+                <Col key={tweet._id}>
+                  <TweetList
+                  date={tweet.created_at}
+                  author={tweet.author}
+                  tweetText={tweet.tweetText}
+                  tweetImg={tweet.tweetImg}
+                  hashtag={tweet.hashtag}
+                  _id={tweet._id}
+                  key={tweet._id}>
+                  </TweetList>
+                </Col>
+              )}
+            </Row>
+          </Container>
+        </div>
       </>
     );
   }

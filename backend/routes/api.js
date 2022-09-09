@@ -28,10 +28,10 @@ router.get('/tweets/hashtag', async (req, res, next) => {
   })
 
 router.post('/tweets/add', isAuthenticated, async (req, res, next) => {
-  const { tweetText, hashtag } = req.body
+  const { tweetText, hashtag, tweetImg, created_at } = req.body
   const author = req.session.username
   try {
-    await Tweet.create({ tweetText, reply: '', author, hashtag })
+    await Tweet.create({ tweetText, tweetImg, reply: '', author, hashtag, created_at })
     res.send('new tweet posted successfully')
   } catch (e) {
     next(new Error('error while creating tweet'))
