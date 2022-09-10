@@ -12,8 +12,10 @@ export const SearchBar = ({ show, setShow, setSelected }) => {
     const [searchTag, setSearchTag] = useState('')
 
     const handleSearch = () => {
-        setSelected(searchTag)
-        setShow(true)
+        if (searchTag !== '') {
+            setSelected(searchTag)
+            setShow(true)
+        }
     }
     
     const handleReturn = () => {

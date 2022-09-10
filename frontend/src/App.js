@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { TweetList } from './components/TweetList'
 import { SearchBar } from './components/SearchBar'
+import { DeleteToaster } from './components/DeleteToaster'
 
 import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
@@ -12,7 +13,6 @@ import { Form } from 'react-bootstrap'
 import Spinner from 'react-bootstrap/Spinner'
 import { Row } from 'react-bootstrap'
 import { Col } from 'react-bootstrap'
-import Toast from 'react-bootstrap/Toast'
 
 export const App = () => {
   const [tweets, setTweets] = useState([])
@@ -24,7 +24,7 @@ export const App = () => {
   const [selected, setSelected] = useState('')
   const [show, setShow] = useState(false)
   const [msg, setMsg] = useState('')
-  const [deleteNotif, showDeleteNotif] = useState(false)
+  const [deleteNotif, setDeleteNotif] = useState(false)
 
   const loggedIn = (user !== '' && user !== undefined)
   const filteredTweets = tweets.filter(tweet => tweet.hashtag === selected)
@@ -127,6 +127,7 @@ export const App = () => {
           </Container>
         </Navbar>
         <div className='overflow-auto'>
+          <DeleteToaster setDeleteNotif={setDeleteNotif} deleteNotif={deleteNotif}></DeleteToaster>
           <SearchBar setSelected={setSelected} show={show} setShow={setShow}></SearchBar>
           {
             loggedIn && (
@@ -187,7 +188,8 @@ export const App = () => {
                       hashtag={tweet.hashtag}
                       _id={tweet._id}
                       key={tweet._id}
-                      user={user}>
+                      user={user}
+                      setDeleteNotif={setDeleteNotif}>
                       </TweetList>
                   </Col>
                   )}
@@ -212,7 +214,8 @@ export const App = () => {
                     hashtag={tweet.hashtag}
                     _id={tweet._id}
                     key={tweet._id}
-                    user={user}>
+                    user={user}
+                    setDeleteNotif={setDeleteNotif}>
                     </TweetList>
                   </Col>
                 )}

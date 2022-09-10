@@ -3,10 +3,11 @@ import axios from "axios"
 import { Card, Badge } from "react-bootstrap"
 import { IoTrashOutline } from "react-icons/io5"
 
-export const TweetList = ({ date, author, tweetText, tweetImg, hashtag, _id, user }) => {
+export const TweetList = ({ date, author, tweetText, tweetImg, hashtag, _id, user, setDeleteNotif }) => {
     const deletePost = async () => {
         try {
           await axios.delete('http://localhost:3000/api/tweets/delete', { data: { _id, author } })
+          setDeleteNotif(true)
         } catch (e) {
           window.alert(e.response.data)
         }
@@ -16,7 +17,7 @@ export const TweetList = ({ date, author, tweetText, tweetImg, hashtag, _id, use
         <>
             <style>{`
                 .delete {
-                    color: red;
+                    color: #CD5C5C;
                     cursor: pointer;
                     float: right;
                 }
