@@ -23,7 +23,7 @@ export const Signup = () => {
 
   const createUser = async () => {
     try {
-      await axios.post('http://localhost:3000/account/signup', { username, password })
+      await axios.post('https://tweetoe.herokuapp.com/account/signup', { username, password })
       setMsg('User creation was successful!')
       setSuccess(true)
       window.setTimeout(() => timeOut(), 2500)

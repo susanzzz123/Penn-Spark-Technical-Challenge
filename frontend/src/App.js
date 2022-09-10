@@ -34,7 +34,7 @@ export const App = () => {
   useEffect(() => {
     const intervalID = setInterval(async () => {
       try {
-        const { data } = await axios.get('http://localhost:3000/api/tweets')
+        const { data } = await axios.get('https://tweetoe.herokuapp.com/api/tweets')
         setTweets(data)
       } catch (e) {
         setMsg('error while fetching questions')
@@ -46,7 +46,7 @@ export const App = () => {
   useEffect(() => {
     const getSession = async () => {
       try {
-        const { data } = await axios.get('http://localhost:3000/api/status')
+        const { data } = await axios.get('https://tweetoe.herokuapp.com/api/status')
         setUser(data)
       } catch (e) {
         setMsg('error while fetching logged in user')
@@ -57,7 +57,7 @@ export const App = () => {
 
   const logOut = async () => {
     try {
-      await axios.post('http://localhost:3000/account/logout')
+      await axios.post('https://tweetoe.herokuapp.com/account/logout')
       setUser('')
     } catch (e) {
       window.alert(e.response.data)
@@ -66,7 +66,7 @@ export const App = () => {
 
   const add = async () => {
     try {
-      await axios.post('http://localhost:3000/api/tweets/add', { tweetText, tweetImg, hashtag, created_at: Date() })
+      await axios.post('https://tweetoe.herokuapp.com/api/tweets/add', { tweetText, tweetImg, hashtag, created_at: Date() })
       setClicked(false)
       setTweetText('')
       setTweetImg('')
