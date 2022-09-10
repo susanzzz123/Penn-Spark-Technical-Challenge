@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "frontend": "parcel frontend/src/index.html",
+    "testfrontend": "parcel frontend/src/index.html",
     "server": "nodemon backend/server.js",
-    "dev": "concurrently --kill-others \"npm run frontend\" \"npm run server\""
+    "dev": "concurrently --kill-others \"npm run testfrontend\" \"npm run server\"",
+    "frontend": "parcel build frontend/src/index.html",
+    "dev2": "npm run frontend && node backend/index.js"
   },
   "keywords": [],
   "author": "",
